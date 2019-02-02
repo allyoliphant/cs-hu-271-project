@@ -1,7 +1,12 @@
 package business;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.regex.Pattern;
 
+/**
+ * @author Tom Hess
+ *
+ */
 public class UserAccountManager {
 	
 	public static final String NOINPUTERROR ="";
@@ -21,13 +26,141 @@ public class UserAccountManager {
     		// return an error message;
     		// if userName already exists
     		// return an error message;
-    		UserAccount newAccount = new UserAccount();
-    		setAccountProfile(newAccount, userName, password, firstName, lastName, email, phone);
-    		newAccount.setRegistrationDate(new Date());
-    		userAccounts.add(newAccount);
-    	    return NOINPUTERROR;
+    		StringBuilder successIndicator = new StringBuilder();
+    		
+    		successIndicator.append(ValidateUserName(userName));
+    		//successIndicator.append(ValidatePassword(password,reenteredPassword));
+    		successIndicator.append(ValidateFirstName(firstName));
+    		successIndicator.append(ValidateLastName(lastName));
+    		successIndicator.append(ValidateEmail(email));
+    		//successIndicator.append(Validate(phone));
+    		
+    		//no errors added to successIndicator
+    		if(successIndicator.length() == 0)
+    		{
+        		UserAccount newAccount = new UserAccount();
+        		setAccountProfile(newAccount, userName.toLowerCase(), password, firstName, lastName, email, phone);
+        		newAccount.setRegistrationDate(new Date());
+        		userAccounts.add(newAccount);
+    		}
+
+    	    return successIndicator.toString();
+    }
+    
+    /**
+     * Checks to see if the entered username meets requirements
+     * @param validateMe the username to validate
+     * @return an empty string indicating success, or the error message
+     */
+    private String ValidateUserName(String validateMe)
+    {
+    	StringBuilder userNameIssues = new StringBuilder(NOINPUTERROR);
+    	
+    	if(validateMe.length() == 0)
+    	{
+    		userNameIssues.append("User name not entered\r\n");
+    	}
+
+/*    	^(?![0-9])(?!\s)[a-zA-Z0-9]+$
+    	 |_______||____||_________||
+    	     |      |        |     allow dups of any allowed characters
+    	     |      |        |
+    	     |      |        allowed characters
+    	     |      |
+    	     |      no spaces allowed inside
+    	     |
+    	     no 0-9 at the beginning
+*/
+    	
+		if(validateMe.length() > 0 && !Pattern.matches("^(?![0-9])(?!\\s)[a-zA-Z0-9]+$", validateMe))
+    	{
+	    	userNameIssues.append("User name invalid, check requirements\r\n");
+    	}
+    	    	
+    	return userNameIssues.toString();
     }
  
+    /**
+     * Checks to see if the first name meets requirements
+     * @param validateMe the string to be validated
+     * @return an empty string indicating success, or the error message
+     */
+    private String ValidateFirstName(String validateMe)
+    {
+    	StringBuilder firstNameIssues = new StringBuilder(NOINPUTERROR);
+    	
+    	if(validateMe.length() == 0)
+    	{
+    		firstNameIssues.append("First name not entered\r\n");
+    	}
+
+/*    	^[a-zA-Z]+$
+    	 |______||
+    	     |   allow dups of any allowed characters
+    	     |
+    	     allowed characters
+*/
+    	
+		if(validateMe.length() > 0 && !Pattern.matches("^[a-zA-Z]+$", validateMe))
+    	{
+	    	firstNameIssues.append("First name invalid, it may contain only letters\r\n");
+    	}
+    	    	
+    	return firstNameIssues.toString();
+    }
+
+    /**
+     * Checks to see if the last name meets requirements
+     * @param validateMe the string to be validated
+     * @return an empty string indicating success, or the error message
+     */
+    private String ValidateLastName(String validateMe)
+    {
+    	StringBuilder lastNameIssues = new StringBuilder(NOINPUTERROR);
+    	
+    	if(validateMe.length() == 0)
+    	{
+    		lastNameIssues.append("Last name not entered\r\n");
+    	}
+
+/*    	^[a-zA-Z]+$
+    	 |______||
+    	     |   allow dups of any allowed characters
+    	     |
+    	     allowed characters
+*/
+    	
+		if(validateMe.length() > 0 && !Pattern.matches("^[a-zA-Z]+$", validateMe))
+    	{
+	    	lastNameIssues.append("Last name invalid, it may contain only letters\r\n");
+    	}
+    	    	
+    	return lastNameIssues.toString();
+    }
+
+    /**
+     * Checks to see if the email address is valid
+     * @param validateMe the string to be validated
+     * @return and empty string indicating success, or the error message
+     */
+    private String ValidateEmail(String validateMe)
+    {
+    	StringBuilder emailIssues = new StringBuilder(NOINPUTERROR);
+    	
+    	if(validateMe.length() == 0)
+    	{
+    		emailIssues.append("Email address not entered\r\n");
+    	}
+
+    	//Pattern is from emailregex.com's Java regex section
+		if(validateMe.length() > 0 && !Pattern.matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])", validateMe))
+    	{
+	    	emailIssues.append("Invalid email adress entered\r\n");
+    	}
+    	    	
+    	return emailIssues.toString();
+    }
+    
     // You need to complete this method
     public String updateAccountProfile(UserAccount existingAccount, 
     		String userName, String password, String reenteredPassword, 

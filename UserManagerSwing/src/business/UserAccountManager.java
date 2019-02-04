@@ -28,12 +28,12 @@ public class UserAccountManager {
     		// return an error message;
     		StringBuilder successIndicator = new StringBuilder();
     		
-    		successIndicator.append(ValidateUserName(userName));
-    		//successIndicator.append(ValidatePassword(password,reenteredPassword));
-    		successIndicator.append(ValidateFirstName(firstName));
-    		successIndicator.append(ValidateLastName(lastName));
-    		successIndicator.append(ValidateEmail(email));
-    		//successIndicator.append(Validate(phone));
+    		successIndicator.append(isUserNameValid(userName));
+    		//successIndicator.append(isPasswordValid(password,reenteredPassword));
+    		successIndicator.append(isFirstNameValid(firstName));
+    		successIndicator.append(isLastNameValid(lastName));
+    		successIndicator.append(isEmailValid(email));
+    		//successIndicator.append(isPhoneNumberValid(phone));
     		
     		//no errors added to successIndicator
     		if(successIndicator.length() == 0)
@@ -52,7 +52,7 @@ public class UserAccountManager {
      * @param validateMe the username to validate
      * @return an empty string indicating success, or the error message
      */
-    private String ValidateUserName(String validateMe)
+    private String isUserNameValid(String validateMe)
     {
     	StringBuilder userNameIssues = new StringBuilder(NOINPUTERROR);
     	
@@ -85,7 +85,7 @@ public class UserAccountManager {
      * @param validateMe the string to be validated
      * @return an empty string indicating success, or the error message
      */
-    private String ValidateFirstName(String validateMe)
+    private String isFirstNameValid(String validateMe)
     {
     	StringBuilder firstNameIssues = new StringBuilder(NOINPUTERROR);
     	
@@ -114,7 +114,7 @@ public class UserAccountManager {
      * @param validateMe the string to be validated
      * @return an empty string indicating success, or the error message
      */
-    private String ValidateLastName(String validateMe)
+    private String isLastNameValid(String validateMe)
     {
     	StringBuilder lastNameIssues = new StringBuilder(NOINPUTERROR);
     	
@@ -143,7 +143,7 @@ public class UserAccountManager {
      * @param validateMe the string to be validated
      * @return and empty string indicating success, or the error message
      */
-    private String ValidateEmail(String validateMe)
+    private String isEmailValid(String validateMe)
     {
     	StringBuilder emailIssues = new StringBuilder(NOINPUTERROR);
     	

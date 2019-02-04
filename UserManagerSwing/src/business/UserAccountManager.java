@@ -28,17 +28,18 @@ public class UserAccountManager {
     		// return an error message;
     		StringBuilder successIndicator = new StringBuilder();
     		
-    		successIndicator.append(isUserNameValid(userName));
-    		//successIndicator.append(isPasswordValid(password,reenteredPassword));
-    		successIndicator.append(isFirstNameValid(firstName));
-    		successIndicator.append(isLastNameValid(lastName));
-    		successIndicator.append(isEmailValid(email));
-    		//successIndicator.append(isPhoneNumberValid(phone));
+				UserAccount newAccount = new UserAccount();
+				
+    		successIndicator.append(newAccount.isUserNameValid(userName));
+    		//successIndicator.append(newAccount.isPasswordValid(password,reenteredPassword));
+    		successIndicator.append(newAccount.isFirstNameValid(firstName));
+    		successIndicator.append(newAccount.isLastNameValid(lastName));
+    		successIndicator.append(newAccount.isEmailValid(email));
+    		//successIndicator.append(newAccount.isPhoneNumberValid(phone));
     		
     		//no errors added to successIndicator
     		if(successIndicator.length() == 0)
     		{
-        		UserAccount newAccount = new UserAccount();
         		setAccountProfile(newAccount, userName.toLowerCase(), password, firstName, lastName, email, phone);
         		newAccount.setRegistrationDate(new Date());
         		userAccounts.add(newAccount);

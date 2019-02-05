@@ -43,10 +43,11 @@ public class UserAccount {
 		this.userName = userName;
 	}
 
+
     /**
-     * Checks to see if the entered username meets requirements
-     * @param validateMe the username to validate
-     * @return an empty string indicating success, or the error message
+     * CHecks to see if the username is valid
+     * @param userName to verify 
+     * @return the result
      */
     public static boolean isUserNameValid(String userName)
     {
@@ -107,8 +108,8 @@ public class UserAccount {
 
     /**
      * Checks to see if the first name meets requirements
-     * @param firstName the string to be validated
-     * @return an empty string indicating success, or the error message
+     * @param firstName to verify 
+     * @return the result of the validation
      */
     public static boolean isFirstNameValid(String firstName)
     {
@@ -137,10 +138,12 @@ public class UserAccount {
 		this.lastName = lastName;
 	}
 
+
+	
     /**
-     * Checks to see if the last name meets requirements
-     * @param lastName the string to be validated
-     * @return an empty string indicating success, or the error message
+     * Checks to see if the last name is valid
+     * @param lastName to verify
+     * @return the result of the validation
      */
     public static boolean isLastNameValid(String lastName)
     {
@@ -171,8 +174,8 @@ public class UserAccount {
 
     /**
      * Checks to see if the email address is valid
-     * @param email the string to be validated
-     * @return and empty string indicating success, or the error message
+     * @param email to validate
+     * @return the result of validation
      */
     public static boolean isEmailValid(String email)
     {
@@ -195,10 +198,23 @@ public class UserAccount {
 		this.phone = phone;
 	}
 
-	// you need to complete this method
-	public static boolean isPhoneNumberValid(String phone){
+	
+	/**
+	 * verifies if the phone number is valid
+	 * @param phone phone number to verify
+	 * @return the result of validation
+	 */
+	public static boolean isPhoneNumberValid(String phone)
+	{
 		// check if phone (number) is valid
-		return true;
+		boolean result = false;
+		
+		if(phone.length() > 0 && Pattern.matches("^\\D?(\\d{3})\\D?\\D?(\\d{3})\\D?(\\d{4})$", phone))
+		{
+			result = true;
+		}
+		
+		return result;
 	}
 
 	public Date getRegistrationDate(){

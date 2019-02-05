@@ -35,7 +35,7 @@ public class UserAccountManager {
     		successIndicator.append(newAccount.isFirstNameValid(firstName) ? "" : "First name invalid\r\n");
     		successIndicator.append(newAccount.isLastNameValid(lastName) ? "" : "Last name invalid\r\n");
     		successIndicator.append(newAccount.isEmailValid(email) ? "" : "Email invalid\r\n");
-    		//successIndicator.append(newAccount.isPhoneNumberValid(phone) ? "" : "Email invalid\r\n");
+    		successIndicator.append(newAccount.isPhoneNumberValid(phone) ? "" : "Phone number invalid\r\n");
     		
     		//no errors added to successIndicator
     		if(successIndicator.length() == 0)

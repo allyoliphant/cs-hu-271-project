@@ -80,10 +80,12 @@ public class UserAccount {
 		this.password = password;
 	}	
 
-	// you need to complete this method
 	public static boolean isPasswordValid(String password){
 		// check if password is valid
-		return true;
+		if(Pattern.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$^+=!*()@%&]).{6,}$", password)) {
+			return true;
+		}
+		return false;
 	}
 
     public boolean isValidCredential(String userName, String password) {

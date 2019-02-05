@@ -6,42 +6,36 @@ import junit.framework.TestCase;
 
 /**
  * 
- * @author Benjamin Clark
+ * @author James Brooks
  *
  */
 public class LoginTests extends TestCase{
 	
 	private UserAccountManager userManager;
 	private UserAccount user;
+	private String username = "admin";
+	private String password = "@BSUccp251";
 	
 	
 	protected void setUp() throws Exception {
 		super.setUp();
 		user = new UserAccount();
 		userManager = new UserAccountManager();
-		userManager.registerNewUser("admin", "@BSUccp251", "@BSUccp251", "Dianxiang", "Xu", "dianxiangxu@boisestate.edu", "2084265734");
+		userManager.registerNewUser(username, password, password, "Dianxiang", "Xu", "dianxiangxu@boisestate.edu", "2084265734");
 	}
 	
-	/**
-	 * Tests if a user name has invalid parameters
-	 */
-	public void testUserNameValid() {
-		assertFalse(user.isUserNameValid("b a")); //space in between
-		assertFalse(user.isUserNameValid("")); //empty
-		assertFalse(user.isUserNameValid("1hskdjfhsk")); //number in beginning	
+	public void testValidLogin() {
+		user = userManager.login(username, password);
+		assertNotNull(user);
+	}
+
+	public void testInvalidUsernameLogin() {
+		user = userManager.login("invalid", password);
+		assertNull(user);
 	}
 	
-	/**
-	 * Tests if a password has invalid parameters
-	 */
-	public void testPasswordValid(){
-		assertFalse(user.isPasswordValid("")); //empty password
-		assertFalse(user.isPasswordValid("sdhgsklhdgfhs")); //all lower case 
-		assertFalse(user.isPasswordValid("g!7Gf")); //too short
-		assertFalse(user.isPasswordValid("HelloO654")); //no special characters
-		assertFalse(user.isPasswordValid("ghj123!")); //no capital letter
-		assertFalse(user.isPasswordValid("GHJL123!!")); //no lower case letter
-		assertFalse(user.isPasswordValid("Hello!!!@@@")); //no digits
-		assertTrue(user.isPasswordValid("@BSUccp251"));
+	public void testInvalidPasswordLogin() {
+		user = userManager.login(username, "invalid");
+		assertNull(user);
 	}
 }

@@ -35,6 +35,21 @@ public class RegisterNewUserTests extends TestCase {
 		assertNull(userAccount); // account does not exist
 	}
 	
+	public void testExistingUserName() {
+		//register user
+		String preRegistrationResult = userAccountManager.registerNewUser("trump", "@White0House", "@White0House", "Don",
+				"Trump", "trump@gmail.com", "7024265734");
+		assertEquals(preRegistrationResult, UserAccountManager.NOINPUTERROR);
+		
+		//attempt to register with existing username
+		String registrationResult = userAccountManager.registerNewUser("trump", "@House0White", "@House0White", "Don",
+				"Trump", "trump@gmail.com", "7024265734");
+		assertFalse(registrationResult.equals(UserAccountManager.NOINPUTERROR));
+		//check to make sure account was not created
+		UserAccount userAccount = userAccountManager.login("trump", "@House0White"); // invalid login
+		assertNull(userAccount); // account does not exist
+	}
+	
 	public void testInvalidPassword() {
 		String registrationResult = userAccountManager.registerNewUser("trump", "house", "house", "Don",
 				"Trump", "trump@gmail.com", "7024265734");

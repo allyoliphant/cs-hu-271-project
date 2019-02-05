@@ -43,9 +43,8 @@ public class UserAccount {
 		this.userName = userName;
 	}
 
-
     /**
-     * CHecks to see if the username is valid
+     * Checks to see if the username is valid
      * @param userName to verify 
      * @return the result
      */

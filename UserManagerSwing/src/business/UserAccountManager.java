@@ -31,6 +31,7 @@ public class UserAccountManager {
 			UserAccount newAccount = new UserAccount();
 				
     		successIndicator.append(UserAccount.isUserNameValid(userName) ? "" : "Username invalid\r\n");
+    		successIndicator.append(!doesUserNameExist(userName) ? "" : "Username already exists\r\n");
     		successIndicator.append(UserAccount.isPasswordValid(password) ? "" : "Password invalid\r\n");
     		successIndicator.append(password.equals(reenteredPassword) ? "" : "Passwords do not match\r\n");
     		successIndicator.append(UserAccount.isFirstNameValid(firstName) ? "" : "First name invalid\r\n");

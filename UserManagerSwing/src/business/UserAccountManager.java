@@ -28,14 +28,14 @@ public class UserAccountManager {
     		// return an error message;
     		StringBuilder successIndicator = new StringBuilder();
     		
-				UserAccount newAccount = new UserAccount();
+			UserAccount newAccount = new UserAccount();
 				
-    		successIndicator.append(newAccount.isUserNameValid(userName));
-    		//successIndicator.append(newAccount.isPasswordValid(password,reenteredPassword));
-    		successIndicator.append(newAccount.isFirstNameValid(firstName));
-    		successIndicator.append(newAccount.isLastNameValid(lastName));
-    		successIndicator.append(newAccount.isEmailValid(email));
-    		//successIndicator.append(newAccount.isPhoneNumberValid(phone));
+    		successIndicator.append(newAccount.isUserNameValid(userName) ? "" : "Username invalid\r\n");
+    		//successIndicator.append(newAccount.isPasswordValid(password,reenteredPassword) ? "" : "Password invalid\r\n");
+    		successIndicator.append(newAccount.isFirstNameValid(firstName) ? "" : "First name invalid\r\n");
+    		successIndicator.append(newAccount.isLastNameValid(lastName) ? "" : "Last name invalid\r\n");
+    		successIndicator.append(newAccount.isEmailValid(email) ? "" : "Email invalid\r\n");
+    		//successIndicator.append(newAccount.isPhoneNumberValid(phone) ? "" : "Email invalid\r\n");
     		
     		//no errors added to successIndicator
     		if(successIndicator.length() == 0)

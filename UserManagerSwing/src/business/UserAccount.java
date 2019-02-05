@@ -1,5 +1,6 @@
 package business;
 
+import java.util.regex.Pattern;
 import java.util.Date;
 
 public class UserAccount {
@@ -47,14 +48,9 @@ public class UserAccount {
      * @param validateMe the username to validate
      * @return an empty string indicating success, or the error message
      */
-    private String isUserNameValid(String userName)
+    public static boolean isUserNameValid(String userName)
     {
-    	StringBuilder userNameIssues = new StringBuilder(NOINPUTERROR);
-    	
-    	if(userName.length() == 0)
-    	{
-    		userNameIssues.append("User name not entered\r\n");
-    	}
+    	boolean result = false;
 
 /*    	^(?![0-9])(?!\s)[a-zA-Z0-9]+$
     	 |_______||____||_________||
@@ -67,12 +63,12 @@ public class UserAccount {
     	     no 0-9 at the beginning
 */
     	
-		if(userName.length() > 0 && !Pattern.matches("^(?![0-9])(?!\\s)[a-zA-Z0-9]+$", userName))
+		if(userName.length() > 0 && Pattern.matches("^(?![0-9])(?!\\s)[a-zA-Z0-9]+$", userName))
     	{
-	    	userNameIssues.append("User name invalid, check requirements\r\n");
+	    	result = true;
     	}
     	    	
-    	return userNameIssues.toString();
+    	return result;
     }
 
 	public String getPassword() {
@@ -114,14 +110,9 @@ public class UserAccount {
      * @param firstName the string to be validated
      * @return an empty string indicating success, or the error message
      */
-    private String isFirstNameValid(String firstName)
+    public static boolean isFirstNameValid(String firstName)
     {
-    	StringBuilder firstNameIssues = new StringBuilder(NOINPUTERROR);
-    	
-    	if(firstName.length() == 0)
-    	{
-    		firstNameIssues.append("First name not entered\r\n");
-    	}
+    	boolean result = false;
 
 /*    	^[a-zA-Z]+$
     	 |______||
@@ -130,12 +121,12 @@ public class UserAccount {
     	     allowed characters
 */
     	
-		if(firstName.length() > 0 && !Pattern.matches("^[a-zA-Z]+$", firstName))
+		if(firstName.length() > 0 && Pattern.matches("^[a-zA-Z]+$", firstName))
     	{
-	    	firstNameIssues.append("First name invalid, it may contain only letters\r\n");
+	    	result = true;
     	}
     	    	
-    	return firstNameIssues.toString();
+    	return result;
     }
 	
 	public String getLastName(){
@@ -151,14 +142,9 @@ public class UserAccount {
      * @param lastName the string to be validated
      * @return an empty string indicating success, or the error message
      */
-    private String isLastNameValid(String lastName)
+    public static boolean isLastNameValid(String lastName)
     {
-    	StringBuilder lastNameIssues = new StringBuilder(NOINPUTERROR);
-    	
-    	if(lastName.length() == 0)
-    	{
-    		lastNameIssues.append("Last name not entered\r\n");
-    	}
+    	boolean result = false;
 
 /*    	^[a-zA-Z]+$
     	 |______||
@@ -167,12 +153,12 @@ public class UserAccount {
     	     allowed characters
 */
     	
-		if(lastName.length() > 0 && !Pattern.matches("^[a-zA-Z]+$", lastName))
+		if(lastName.length() > 0 && Pattern.matches("^[a-zA-Z]+$", lastName))
     	{
-	    	lastNameIssues.append("Last name invalid, it may contain only letters\r\n");
+	    	result = true;
     	}
     	    	
-    	return lastNameIssues.toString();
+    	return result;
     }
 
 	public String getEmail(){
@@ -188,22 +174,17 @@ public class UserAccount {
      * @param email the string to be validated
      * @return and empty string indicating success, or the error message
      */
-    private String isEmailValid(String email)
+    public static boolean isEmailValid(String email)
     {
-    	StringBuilder emailIssues = new StringBuilder(NOINPUTERROR);
-    	
-    	if(email.length() == 0)
-    	{
-    		emailIssues.append("Email address not entered\r\n");
-    	}
+    	boolean result = false;
 
     	//Pattern is from emailregex.com's Java regex section
-		if(email.length() > 0 && !Pattern.matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])", email))
+		if(email.length() > 0 && Pattern.matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])", email))
     	{
-	    	emailIssues.append("Invalid email adress entered\r\n");
+	    	result = true;
     	}
     	    	
-    	return emailIssues.toString();
+    	return result;
     }
 
 	public String getPhoneNumber(){

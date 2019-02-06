@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.regex.Pattern;
 
 /**
- * @author Tom Hess
+ * @author Tom Hess, James Brooks
  *
  */
 public class UserAccountManager {
@@ -30,12 +30,14 @@ public class UserAccountManager {
     		
 			UserAccount newAccount = new UserAccount();
 				
-    		successIndicator.append(newAccount.isUserNameValid(userName) ? "" : "Username invalid\r\n");
-    		//successIndicator.append(newAccount.isPasswordValid(password,reenteredPassword) ? "" : "Password invalid\r\n");
-    		successIndicator.append(newAccount.isFirstNameValid(firstName) ? "" : "First name invalid\r\n");
-    		successIndicator.append(newAccount.isLastNameValid(lastName) ? "" : "Last name invalid\r\n");
-    		successIndicator.append(newAccount.isEmailValid(email) ? "" : "Email invalid\r\n");
-    		successIndicator.append(newAccount.isPhoneNumberValid(phone) ? "" : "Phone number invalid\r\n");
+    		successIndicator.append(UserAccount.isUserNameValid(userName) ? "" : "Username invalid\r\n");
+    		successIndicator.append(!doesUserNameExist(userName) ? "" : "Username already exists\r\n");
+    		successIndicator.append(UserAccount.isPasswordValid(password) ? "" : "Password invalid\r\n");
+    		successIndicator.append(password.equals(reenteredPassword) ? "" : "Passwords do not match\r\n");
+    		successIndicator.append(UserAccount.isFirstNameValid(firstName) ? "" : "First name invalid\r\n");
+    		successIndicator.append(UserAccount.isLastNameValid(lastName) ? "" : "Last name invalid\r\n");
+    		successIndicator.append(UserAccount.isEmailValid(email) ? "" : "Email invalid\r\n");
+    		successIndicator.append(UserAccount.isPhoneNumberValid(phone) ? "" : "Phone number invalid\r\n");
     		
     		//no errors added to successIndicator
     		if(successIndicator.length() == 0)
@@ -47,14 +49,6 @@ public class UserAccountManager {
 
     	    return successIndicator.toString();
     }
-    
-
- 
-
-
-
-
-
     
     // You need to complete this method
     public String updateAccountProfile(UserAccount existingAccount, 

@@ -18,6 +18,15 @@ public class UserAccount {
 	public UserAccount() {	
 	}
 	
+	/** verifies the provided input is valid
+	 * @param userName the username to verify
+	 * @param password the password to verify
+	 * @param firstName the first name to verify
+	 * @param lastName the last name to verify
+	 * @param email the email  to verify
+	 * @param phone the phone number  to verify
+	 * @return a string representing any problems that were found
+	 */
 	public static String checkInputError(String userName, String password, String firstName, String lastName, String email, String phone){
 		String errorMessage ="";
 		if (!isUserNameValid(userName))
@@ -79,6 +88,11 @@ public class UserAccount {
 		this.password = password;
 	}	
 
+	/**
+	 * Checks to see if the password is valid
+	 * @param password The password to verify
+	 * @return whether the password is valid according to the criteria
+	 */
 	public static boolean isPasswordValid(String password){
 		// check if password is valid
 		if(Pattern.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$^+=!*()@%&]).{6,}$", password)) {
@@ -87,14 +101,30 @@ public class UserAccount {
 		return false;
 	}
 
+    /**
+     * verifies that the provided credentials are a valid user account
+     * @param userName username to verify
+     * @param password password to verify
+     * @return
+     */
     public boolean isValidCredential(String userName, String password) {
          return matchUserName(userName) && matchPassword(password);
     }
     
+    /**
+     * checks to see if this account is the provided account's username
+     * @param userName the username to check against
+     * @return if it matches
+     */
     public boolean matchUserName(String userName) {
          return userName != null && userName.equals(this.userName);
     }
     
+    /**
+     * checks to see fi the provided apssword is for this account
+     * @param password the password to verify
+     * @return if it matches
+     */
     private boolean matchPassword(String password) {
         return password != null && password.equals(this.password);
    }

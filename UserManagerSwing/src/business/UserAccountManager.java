@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.regex.Pattern;
 
 /**
- * @author Tom Hess, James Brooks
+ * @author Tom Hess, James Brooks, Benjamin Clark, Ally Oliphant
  *
  */
 public class UserAccountManager {
@@ -16,17 +16,22 @@ public class UserAccountManager {
     public UserAccountManager() {
         userAccounts = new ArrayList<UserAccount>();
     }
-        
-    // You need to complete this method
+          
+    /**
+     * check if userName, password, firstName, lastName, email, or phone is invalid
+     * @param userName the username to verify
+     * @param password the password  to verify
+     * @param reenteredPassword the password to match against the entered password
+     * @param firstName the first name  to verify
+     * @param lastName the last name  to verify
+     * @param email the email  to verify
+     * @param phone the phone  to verify
+     * @return an error indicating any problems or complete success
+     */
     public String registerNewUser(String userName, String password, String reenteredPassword, 
     		String firstName, String lastName, String email, String phone){
-    		// check if userName, password, firstName, lastName, email, or phone is invalid 
-    		// if invalid, return error message
-    		// if reenteredPassword does not match password
-    		// return an error message;
-    		// if userName already exists
-    		// return an error message;
-    		StringBuilder successIndicator = new StringBuilder();
+
+    	StringBuilder successIndicator = new StringBuilder();
     		
 			UserAccount newAccount = new UserAccount();
 				
@@ -40,6 +45,7 @@ public class UserAccountManager {
     		successIndicator.append(UserAccount.isPhoneNumberValid(phone) ? "" : "Phone number invalid\r\n");
     		
     		//no errors added to successIndicator
+    		//process the registration
     		if(successIndicator.length() == 0)
     		{
         		setAccountProfile(newAccount, userName.toLowerCase(), password, firstName, lastName, email, phone);

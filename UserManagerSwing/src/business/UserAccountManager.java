@@ -105,26 +105,61 @@ public class UserAccountManager {
     		return false;
     }
 
-	// you need to complete this method
+    private UserAccount getUserByEmail(String email){
+    	for (UserAccount userAccount: userAccounts)
+    		if(userAccount.getEmail().equals(email))   
+    			return userAccount; 
+    	return null;
+    }
+    
+    private UserAccount getUserByUsername(String username) {
+    	for (UserAccount userAccount: userAccounts)
+			if(userAccount.getUserName().equals(username))   
+				return userAccount;
+		return null;
+    }
+
  	public String forgotUserName(String email){
 		// Check if the given email is valid
-		// if not, return an error message
+ 		if(!UserAccount.isEmailValid(email)) {
+ 			// if not, return an error message
+ 			return "Email is not valid";
+ 		}
+
 		// otherwise check if there is an account that matches the given email
+ 		UserAccount user = getUserByEmail(email);
+
 		// if found, send the user name to the email address
+ 		if(user != null)
+ 			sendEmail(email, user.getUserName());
 		// otherwise return an error message
-		return NOINPUTERROR; // you may change this statement if necessary
-   	
+ 		else
+ 			return "No username associated with given email";
+
+		return NOINPUTERROR;
     }
 
-	// you need to complete this method
     public String forgotPassword(String userName){
 		// Check if the given user name is valid
-		// if not, return an error message
+    	if(!UserAccount.isUserNameValid(userName)) {
+ 			// if not, return an error message
+ 			return "Username is not valid";
+ 		}
+    	
 		// check if there is an account that matches the given user name
+    	UserAccount user = getUserByUsername(userName);
+
 		// if found, send the password to the email address
-		// otherwise return an error message
-	    return NOINPUTERROR; // you may change this statement if necessary
+    	if(user != null)
+    		sendEmail(user.getEmail(), user.getPassword());
+    	else
+    		// otherwise return an error message
+    		return "No account associated with given username";
+
+	    return NOINPUTERROR;
     }
 
-    
+ 	private void sendEmail(String receipant, String body) {
+ 		
+ 	}
 }

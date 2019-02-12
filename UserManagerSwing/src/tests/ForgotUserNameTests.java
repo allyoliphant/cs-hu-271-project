@@ -4,6 +4,11 @@ import business.UserAccount;
 import business.UserAccountManager;
 import junit.framework.TestCase;
 
+/**
+ * Tests the validity of the forgotUserName method in the UserAccountManager class
+ * @author Benjamin Clark
+ *
+ */
 public class ForgotUserNameTests extends TestCase{
 	
 	private UserAccountManager uManager;

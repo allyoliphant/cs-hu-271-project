@@ -4,6 +4,12 @@ import business.UserAccount;
 import business.UserAccountManager;
 import junit.framework.TestCase;
 
+
+/**
+ * Tests the validity of the forgotPassword method in the UserAccountManager class
+ * @author Benjamin Clark
+ *
+ */
 public class ForgotPasswordTests extends TestCase{
 	
 	private UserAccountManager uManager;

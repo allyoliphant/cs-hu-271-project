@@ -8,27 +8,52 @@ public class ForgotPasswordTests extends TestCase{
 	
 	private UserAccountManager uManager;
 	private UserAccount uAccount;
-	private String email = "trump@gmail.com";
+	String user = "trump";
 	
 	protected void setUp() {
 		uManager = new UserAccountManager();
 		uAccount = new UserAccount();
 	}
 	
-	public void testValidEmail() {
-	String email = "trump@gmail.com";
+	public void testValidUsername() {
 	String registration = uManager.registerNewUser("trump", "@White0House", "@White0House", "Don",
 			"Trump", "trump@gmail.com", "7024265734");
 	
-	//valid email used
-	assertEquals(uManager.forgotUserName(email), uManager.NOINPUTERROR);
-	assertNotNull(uManager.forgotUserName(email));
+	//valid username used
+	assertEquals(uManager.forgotPassword(user), uManager.NOINPUTERROR);
+	assertNotNull(uManager.forgotPassword(user));
 }
 
-public void testEmptyEmail() {
-	String invalidEmpty= "";
+public void testEmptyUsername() {
+	String invalid= "";
 	
-	//no email entered
-	assertFalse(uManager.forgotUserName(invalidEmpty).equals(uManager.NOINPUTERROR));
+	//no username entered
+	assertFalse(uManager.forgotPassword(invalid).equals(uAccount.isUserNameValid(invalid)));
+}
+
+public void testNumberInBeginning() {
+	
+	String invalid = "1shkdjf";
+	
+	//number in beginnning
+	assertFalse(uManager.forgotPassword(invalid).equals(uAccount.isUserNameValid(invalid)));
+	
+}
+
+public void testSpaceInBetween() {
+	
+	String invalid = "tr ump";
+	
+	assertFalse(uManager.forgotPassword(invalid).equals(uAccount.isUserNameValid(invalid)));
+}
+
+public void testUserNameExists() {
+	
+	String invalid = "jsgfsk";
+	
+	String registration = uManager.registerNewUser("trump", "@White0House", "@White0House", "Don",
+			"Trump", "trump@gmail.com", "7024265734");
+	
+	assertFalse(uManager.forgotPassword(invalid).equals(uManager.doesUserNameExist(invalid)));
 }
 }

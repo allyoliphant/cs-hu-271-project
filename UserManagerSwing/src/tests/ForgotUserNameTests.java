@@ -47,11 +47,11 @@ public class ForgotUserNameTests extends TestCase{
 		String invalid5 = " trump@gmail.com";
 		String invalid6 = "trump@gmail.com ";
 		
-		assertFalse(uManager.forgotUserName(invalid).equals(uAccount.isEmailValid(invalid)));
-		assertFalse(uManager.forgotUserName(invalid2).equals(uAccount.isEmailValid(invalid2)));
-		assertFalse(uManager.forgotUserName(invalid3).equals(uAccount.isEmailValid(invalid3)));
-		assertFalse(uManager.forgotUserName(invalid4).equals(uAccount.isEmailValid(invalid4)));
-		assertFalse(uManager.forgotUserName(invalid5).equals(uAccount.isEmailValid(invalid5)));
-		assertFalse(uManager.forgotUserName(invalid6).equals(uAccount.isEmailValid(invalid6)));
+		assertFalse(uManager.forgotUserName(invalid).equals(UserAccount.isEmailValid(invalid)));
+		assertFalse(uManager.forgotUserName(invalid2).equals(UserAccount.isEmailValid(invalid2)));
+		assertFalse(uManager.forgotUserName(invalid3).equals(UserAccount.isEmailValid(invalid3)));
+		assertFalse(uManager.forgotUserName(invalid4).equals(UserAccount.isEmailValid(invalid4)));
+		assertFalse(uManager.forgotUserName(invalid5).equals(UserAccount.isEmailValid(invalid5)));
+		assertFalse(uManager.forgotUserName(invalid6).equals(UserAccount.isEmailValid(invalid6)));
 	}
 }

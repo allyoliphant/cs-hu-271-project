@@ -1,7 +1,6 @@
 package business;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.regex.Pattern;
 
 /**
  * @author Tom Hess, James Brooks, Benjamin Clark, Ally Oliphant
@@ -56,28 +55,98 @@ public class UserAccountManager {
     	    return successIndicator.toString();
     }
     
-    // You need to complete this method
+    /**
+     * Updates the account profile when requested
+     * @param existingAccount users current account
+     * @param userName new user name
+     * @param password new password
+     * @param reenteredPassword confirm password
+     * @param firstName new first name
+     * @param lastName new last name
+     * @param email new email
+     * @param phone new phone
+     * @return errors or success
+     */
     public String updateAccountProfile(UserAccount existingAccount, 
     		String userName, String password, String reenteredPassword, 
     		String firstName, String lastName, String email, String phone){
-		// check if userName, password, firstName, lastName, email, or phone is invalid 
-		// if invalid, return error message
-		// if reenteredPassword does not match password
-		// return an error message;
-    		// if there is no profile change (refer to method hasProfileChanges below), return a message 
-		// if userName is changed and the new userName already exists
-		// return an error message;
-  		setAccountProfile(existingAccount, userName, password, firstName, lastName, email, phone);
-  		existingAccount.setLastUpdateDate(new Date());
-	    return NOINPUTERROR;
+   	
+    	StringBuilder successIndicator = new StringBuilder();
+    	
+    	//ignore empty strings
+    	successIndicator.append(userName != "" && !UserAccount.isUserNameValid(userName) ? "" : "New username invalid.\r\n");
+    	successIndicator.append(password != "" && !UserAccount.isPasswordValid(password) ? "" : "Password invalid.\r\n");
+    	successIndicator.append(firstName != "" && !UserAccount.isFirstNameValid(firstName) ? "" : "First name invalid.\r\n");
+    	successIndicator.append(lastName != "" && !UserAccount.isLastNameValid(lastName) ? "" : "Last name invalid.\r\n");
+    	successIndicator.append(email != "" && !UserAccount.isEmailValid(email) ? "" : "Email invalid.\r\n");
+    	successIndicator.append(phone != "" && !UserAccount.isPhoneNumberValid(phone) ? "" : "Phone number invalid.\r\n");
+    	successIndicator.append(password.equals(reenteredPassword) ? "" : "Passwords don't match.\r\n");
+    	successIndicator.append(userName != "" && doesUserNameExist(userName) ? "User name not available" : "");
+    	
+    	if(successIndicator.length() == 0 && hasProfileChanges(existingAccount, userName, password, 
+    			firstName, lastName, email, phone))
+    	{
+        	setAccountProfile(existingAccount, userName, password, firstName, lastName, email, phone);
+      		existingAccount.setLastUpdateDate(new Date());
+    	}
+    	else
+    	{
+    		successIndicator.append("No changes to account.");
+    	}
+    	
+	    return successIndicator.toString();
     }
     
-    // You need to complete this method. 
-    // It should be called in method updateAccountProfile
+    /**
+     * Return true when at least one property from the form does not match what's on file
+     * @param existingAccount The account for the logged in user
+     * @param userName new username
+     * @param password new password
+     * @param firstName new first name
+     * @param lastName new last name
+     * @param email new email
+     * @param phone new phone
+     * @return whether there's at least one change
+     */
     private boolean hasProfileChanges(UserAccount existingAccount, String userName, String password, 
     		String firstName, String lastName, String email, String phone){
-    		// check profile change 
-		return true; // you may change this statement if necessary
+    	
+    	boolean hasChanges = false;
+    	
+    	//check for problem values and make sure it's not the same as on file
+    	//check the most common change first
+    	if(!existingAccount.getPassword().equals(password))
+    	{
+    		hasChanges = true;
+    	}
+    	
+    	//don't bother checking if the hasChanges is already true because there's at least one change
+    	if(hasChanges == false && (!existingAccount.getUserName().equals(userName)))
+    	{
+    		hasChanges = true;
+    	}
+    	
+    	if(hasChanges == false && (!existingAccount.getFirstName().equals(firstName)))
+    	{
+    		hasChanges = true;
+    	}    	
+
+    	if(hasChanges == false && (!existingAccount.getLastName().equals(lastName)))
+    	{
+    		hasChanges = true;
+    	}    	
+    	
+    	if(hasChanges == false && (!existingAccount.getEmail().equals(email)))
+    	{
+    		hasChanges = true;
+    	}
+    	
+    	if(hasChanges == false && (!existingAccount.getPhoneNumber().equals(phone)))
+    	{
+    		hasChanges = true;
+    	}
+    	
+    	return hasChanges;
     }
 
     private void setAccountProfile(UserAccount userAccount, String userName, String password, String firstName, String lastName, String email, String phone){

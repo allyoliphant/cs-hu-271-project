@@ -56,7 +56,9 @@ public class UpdateProfileTests extends TestCase{
 	public void testInvalidPhoneNumber() {
 		String newUser = uManager.updateAccountProfile(uAccount, "john", "shdgfs!46G" , "shdgfs!46G", "John", "Jones", "John@gmail.com", "20846");
 		 assertFalse(newUser.equals(uManager.NOINPUTERROR));
+		 UserAccount account = uManager.login("john", "shdgfs!46G");
 		 assertFalse(uAccount.isPhoneNumberValid("20846"));
+		 assertNull(account);
 	}
 	
 	/**
@@ -76,6 +78,8 @@ public class UpdateProfileTests extends TestCase{
 	public void testsInvalidPasswordRentered() {
 		String newUser = uManager.updateAccountProfile(uAccount, "john", "shdgfs!46G" , "shdg", "John", "Jones", "John@gmail.com", "2084672347");
 		 assertFalse(newUser.equals(uManager.NOINPUTERROR));
+		 UserAccount account = uManager.login("john", "shdgfs!46G");
+		 assertNull(account);
 	}
 	
 	/**
@@ -84,7 +88,9 @@ public class UpdateProfileTests extends TestCase{
 	public void testInvalidFirstName() {
 		String newUser = uManager.updateAccountProfile(uAccount, "john", "shdgfs!46G" , "shdgfs!46G", "", "Jones", "John@gmail.com", "2084672347");
 		assertFalse(uAccount.isFirstNameValid(""));
-		 assertFalse(newUser.equals(uManager.NOINPUTERROR));
+		assertFalse(newUser.equals(uManager.NOINPUTERROR));
+		UserAccount account = uManager.login("john", "shdgfs!46G");
+		assertNull(account);
 	}
 	
 	/**
@@ -93,7 +99,9 @@ public class UpdateProfileTests extends TestCase{
 	public void testInvalidLastName() {
 		String newUser = uManager.updateAccountProfile(uAccount, "john", "shdgfs!46G" , "shdgfs!46G", "John", "", "John@gmail.com", "2084672347");
 		assertFalse(uAccount.isLastNameValid(""));
-		 assertFalse(newUser.equals(uManager.NOINPUTERROR));
+		assertFalse(newUser.equals(uManager.NOINPUTERROR));
+		UserAccount account = uManager.login("john", "shdgfs!46G");
+		assertNull(account);
 	}
 	
 	/**
@@ -102,6 +110,8 @@ public class UpdateProfileTests extends TestCase{
 	public void testInvalidEmail() {
 		String newUser = uManager.updateAccountProfile(uAccount, "john", "shdgfs!46G" , "shdgfs!46G", "John", "Jones", "Johngmail.com", "2084672347");
 		assertFalse(uAccount.isEmailValid("Johngmail.com"));
-		 assertFalse(newUser.equals(uManager.NOINPUTERROR));
+		assertFalse(newUser.equals(uManager.NOINPUTERROR));
+		UserAccount account = uManager.login("john", "shdgfs!46G");
+		assertNull(account);
 	}
 }
